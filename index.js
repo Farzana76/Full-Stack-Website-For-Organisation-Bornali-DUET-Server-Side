@@ -25,7 +25,8 @@ async function run(){
         const messageCollection = database.collection('messages');
         const psCollection = database.collection('ps');
         const currentMembersCollection = database.collection('currentmembers');
-        // const reviewsCollection = database.collection('review');
+        const advisorCollection = database.collection('advisor');
+        const standingCommitteeCollection = database.collection('standingcommittee');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -52,6 +53,20 @@ async function run(){
             const result = await messageCollection.insertOne(message);
             res.json(result);
         });
+
+        // GET advisory committee API
+        app.get('/advisor', async (req, res) => {
+            const cursor = advisorCollection.find({});
+            const advisors = await cursor.toArray();
+            res.send(advisors);
+        });
+
+        //POST advisory committee API
+        app.post('/advisor', async(req, res) =>{
+                const advisors = req.body;
+                const result = await advisorCollection.insertOne(advisors);
+                res.json(result);
+            });
 
         // GET president/secretary API
         app.get('/ps', async (req, res) => {
@@ -83,30 +98,31 @@ async function run(){
             res.json(result);
         });
 
-        // GET president/secretary API
+        // GET current members API
         app.get('/currentmembers', async (req, res) => {
             const cursor = currentMembersCollection.find({});
             const currentMembers = await cursor.toArray();
             res.send(currentMembers);
         });
 
-        //POST president/secretary API
-        // app.post('/currentmembers', async(req, res) =>{
-        //     const designation = req.body.designation;
-        //     const numberOfTickets = req.body.numberOfTickets;
-        //     const tickets = req.body.tickets1name;
-        //     const currentMembers = {
-        //         designation,
-        //         numberOfTickets,
-        //         tickets
-        //     }
-        //     const result = await currentMembersCollection.insertOne(currentMembers);
-        //     res.json(result);
-        // });
-
+        //POST current members API
         app.post('/currentmembers', async(req, res) =>{
                 const currentMembers = req.body;
                 const result = await currentMembersCollection.insertOne(currentMembers);
+                res.json(result);
+            });
+
+         // GET standing committee members API
+         app.get('/standingcommittee', async (req, res) => {
+            const cursor = standingCommitteeCollection.find({});
+            const standingCommittee = await cursor.toArray();
+            res.send(standingCommittee);
+        });
+
+        //POST standing committee API
+        app.post('/standingcommittee', async(req, res) =>{
+                const standingCommittee = req.body;
+                const result = await standingCommitteeCollection.insertOne(standingCommittee);
                 res.json(result);
             });
 
