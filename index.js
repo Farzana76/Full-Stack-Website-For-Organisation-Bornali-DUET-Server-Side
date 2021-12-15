@@ -27,6 +27,7 @@ async function run(){
         const currentMembersCollection = database.collection('currentmembers');
         const advisorCollection = database.collection('advisor');
         const standingCommitteeCollection = database.collection('standingcommittee');
+        const eventsCollection = database.collection('events');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -125,6 +126,32 @@ async function run(){
                 const result = await standingCommitteeCollection.insertOne(standingCommittee);
                 res.json(result);
             });
+
+        // GET event API
+        app.get('/events', async (req, res) => {
+            const cursor = eventsCollection.find({});
+            const events = await cursor.toArray();
+            res.send(events);
+        });
+
+        //POST event API
+        app.post('/events', async(req, res) =>{
+            const name = req.body.name;
+            const session = req.body.session;
+            const msg = req.body.msg;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64');
+            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const event = {
+                name,
+                session,
+                image: imageBuffer,
+                msg
+            }
+            const result = await eventsCollection.insertOne(event);
+            res.json(result);
+        });
 
         // // GET my orders API
         // app.get('/orders', async (req, res) => {
