@@ -139,14 +139,34 @@ async function run(){
             const name = req.body.name;
             const session = req.body.session;
             const msg = req.body.msg;
-            const image = req.files.image;
-            const picData = image.data;
-            const encodedPic = picData.toString('base64');
-            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const image1 = req.files.image1;
+            const picData1 = image1.data;
+            const encodedPic1 = picData1.toString('base64');
+            const imageBuffer1 = Buffer.from(encodedPic1, 'base64');
+            const image2 = req.files.image2;
+            const picData2 = image2.data;
+            const encodedPic2 = picData2.toString('base64');
+            const imageBuffer2 = Buffer.from(encodedPic2, 'base64');
+            const image3 = req.files.image3;
+            const picData3 = image3.data;
+            const encodedPic3 = picData3.toString('base64');
+            const imageBuffer3 = Buffer.from(encodedPic3, 'base64');
+            const image4 = req.files.image4;
+            const picData4 = image4.data;
+            const encodedPic4 = picData4.toString('base64');
+            const imageBuffer4 = Buffer.from(encodedPic4, 'base64');
+            const image5 = req.files.image5;
+            const picData5 = image5.data;
+            const encodedPic5 = picData5.toString('base64');
+            const imageBuffer5 = Buffer.from(encodedPic5, 'base64');
             const event = {
                 name,
                 session,
-                image: imageBuffer,
+                image1: imageBuffer1,
+                image2: imageBuffer2,
+                image3: imageBuffer3,
+                image4: imageBuffer4,
+                image5: imageBuffer5,
                 msg
             }
             const result = await eventsCollection.insertOne(event);
