@@ -28,6 +28,7 @@ async function run(){
         const advisorCollection = database.collection('advisor');
         const standingCommitteeCollection = database.collection('standingcommittee');
         const eventCollection = database.collection('event');
+        const usersCollection = database.collection('users');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -171,6 +172,46 @@ async function run(){
             }
             const result = await eventCollection.insertOne(event);
             res.json(result);
+        });
+
+        // check admin
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            let isAdmin = false;
+            if (user?.role === 'admin') {
+                isAdmin = true;
+            }
+            res.json({ admin: isAdmin });
+        })
+
+        // users API
+        app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            console.log(result);
+            res.json(result);
+        });
+
+        // upsert for google login
+        app.put('/users', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const options = { upsert: true };
+            const updateDoc = { $set: user };
+            const result = await usersCollection.updateOne(filter, updateDoc, options);
+            res.json(result);
+        });
+
+        //update admin role
+        app.put('/users/admin', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const updateDoc = { $set: { role: 'admin' } };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.json(result);
+
         });
 
         // // GET my orders API
