@@ -197,6 +197,7 @@ async function run(){
         // upsert for google login
         app.put('/users', async (req, res) => {
             const user = req.body;
+            console.log(user);
             const filter = { email: user.email, phone: user.phone };
             const options = { upsert: true };
             const updateDoc = { $set: user };
