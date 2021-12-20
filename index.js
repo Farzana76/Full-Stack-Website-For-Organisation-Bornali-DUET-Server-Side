@@ -186,9 +186,41 @@ async function run(){
             res.json({ admin: isAdmin });
         })
 
+        // GET event API
+        app.get('/users', async (req, res) => {
+            const cursor = usersCollection.find({});
+            const users = await cursor.toArray();
+            res.send(users);
+        });
+
         // users post API
         app.post('/users', async (req, res) => {
-            const user = req.body;
+            // const user = req.body;
+            const sid = req.body.sid;
+            const session = req.body.session;
+            const dept = req.body.dept;
+            const blood = req.body.bloodGroup;
+            const name = req.body.displayName;
+            const email = req.body.email;
+            const phone = req.body.phone;
+            const address = req.body.address;
+            const city = req.body.city;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64');
+            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const user = {
+                sid,
+                session,
+                dept,
+                blood,
+                name,
+                email,
+                phone,
+                address,
+                city,
+                image: imageBuffer
+            }
             const result = await usersCollection.insertOne(user);
             console.log(result);
             res.json(result);
