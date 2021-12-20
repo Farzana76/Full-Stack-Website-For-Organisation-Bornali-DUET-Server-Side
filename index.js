@@ -224,16 +224,16 @@ async function run(){
             const filter = { email: email, phone: phone };
             const options = { upsert: true };
             const updateDoc = { $set: {
-                    sid: sid,
-                    dept: dept,
-                    session: session,
-                    blood: blood,
-                    name: name,
-                    email: email,
-                    phone: phone,
-                    address: address,
-                    city: city,
-                    image: image
+                    sid,
+                    dept,
+                    session,
+                    blood,
+                    name,
+                    email,
+                    phone,
+                    address,
+                    city,
+                    image
                 }
              };
             const result = await usersCollection.updateOne(filter, updateDoc, options);
