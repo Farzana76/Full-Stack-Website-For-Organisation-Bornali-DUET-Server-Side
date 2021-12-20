@@ -186,8 +186,16 @@ async function run(){
             res.json({ admin: isAdmin });
         })
 
-        // users POST API
+        // users post API
         app.post('/users', async (req, res) => {
+            const user = req.body;
+            const result = await usersCollection.insertOne(user);
+            console.log(result);
+            res.json(result);
+        });
+
+        // upsert for google login
+        app.put('/users', async (req, res) => {
             const sid = req.body.sid;
             const dept = req.body.dept;
             const session = req.body.session;
@@ -213,18 +221,21 @@ async function run(){
                 city,
                 image: imageBuffer
             }
-            const result = await usersCollection.insertOne(user);
-            console.log(result);
-            res.json(result);
-        });
-
-        // upsert for google login
-        app.put('/users', async (req, res) => {
-            const user = req.body;
-            console.log(user);
-            const filter = { email: user.email, phone: user.phone };
+            const filter = { email: email, phone: phone };
             const options = { upsert: true };
-            const updateDoc = { $set: user };
+            const updateDoc = { $set: {
+                    sid: sid,
+                    dept: dept,
+                    session: session,
+                    blood: blood,
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    address: address,
+                    city: city,
+                    image: image
+                }
+             };
             const result = await usersCollection.updateOne(filter, updateDoc, options);
             res.json(result);
         });
