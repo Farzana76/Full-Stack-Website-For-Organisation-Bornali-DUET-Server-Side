@@ -186,9 +186,33 @@ async function run(){
             res.json({ admin: isAdmin });
         })
 
-        // users API
+        // users POST API
         app.post('/users', async (req, res) => {
-            const user = req.body;
+            const sid = req.body.sid;
+            const dept = req.body.dept;
+            const session = req.body.session;
+            const blood = req.body.bloodGroup;
+            const name = req.body.displayName;
+            const email = req.body.email;
+            const phone = req.body.phone;
+            const address = req.body.address;
+            const city = req.body.city;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64');
+            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const user = {
+                sid,
+                dept,
+                session,
+                blood,
+                name,
+                email,
+                phone,
+                address,
+                city,
+                image: imageBuffer
+            }
             const result = await usersCollection.insertOne(user);
             console.log(result);
             res.json(result);
