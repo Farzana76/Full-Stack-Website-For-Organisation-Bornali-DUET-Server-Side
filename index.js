@@ -201,25 +201,25 @@ async function run(){
             const dept = req.body.dept;
             const blood = req.body.bloodGroup;
             const name = req.body.displayName;
-            const email = req.body.email;
-            const phone = req.body.phone;
-            const address = req.body.address;
-            const city = req.body.city;
-            const image = req.files.image;
-            const picData = image.data;
-            const encodedPic = picData.toString('base64');
-            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            // const email = req.body.email;
+            // const phone = req.body.phone;
+            // const address = req.body.address;
+            // const city = req.body.city;
+            // const image = req.files.image;
+            // const picData = image.data;
+            // const encodedPic = picData.toString('base64');
+            // const imageBuffer = Buffer.from(encodedPic, 'base64');
             const user = {
                 sid,
                 session,
                 dept,
                 blood,
                 name,
-                email,
-                phone,
-                address,
-                city,
-                image: imageBuffer
+                // email,
+                // phone,
+                // address,
+                // city,
+                // image: imageBuffer
             }
             const result = await usersCollection.insertOne(user);
             console.log(result);
