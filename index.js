@@ -212,7 +212,7 @@ async function run(){
             const phone = req.body.phone;
             const address = req.body.address;
             const city = req.body.city;
-            const image = req.body.image;
+            const image = req.files.image;
             const picData = image.data;
             const encodedPic = picData.toString('base64');
             const imageBuffer = Buffer.from(encodedPic, 'base64');
