@@ -212,6 +212,8 @@ async function run(){
             const phone = req.body.phone;
             const address = req.body.address;
             const city = req.body.city;
+            const company = req.body.company;
+            const position = req.body.position;
             const image = req.files.image;
             const picData = image.data;
             const encodedPic = picData.toString('base64');
@@ -226,6 +228,8 @@ async function run(){
                 phone,
                 address,
                 city,
+                company,
+                position,
                 image: imageBuffer
             }
             const filter = { email: user.email};
