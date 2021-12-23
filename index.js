@@ -29,6 +29,7 @@ async function run(){
         const standingCommitteeCollection = database.collection('standingcommittee');
         const eventCollection = database.collection('event');
         const usersCollection = database.collection('users');
+        const jobsCollection = database.collection('jobs');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -249,19 +250,19 @@ async function run(){
 
         });
 
-        // // GET my orders API
-        // app.get('/orders', async (req, res) => {
-        //     const cursor = ordersCollection.find({});
-        //     const orders = await cursor.toArray();
-        //     res.send(orders);
-        // });
+        // GET my orders API
+        app.get('/jobs', async (req, res) => {
+            const cursor = jobsCollection.find({});
+            const jobs = await cursor.toArray();
+            res.send(jobs);
+        });
 
-        // //Orders API
-        // app.post('/orders', async(req, res) =>{
-        //     const order = req.body;
-        //     const result = await ordersCollection.insertOne(order);
-        //     res.json(result);
-        // });
+        //Orders API
+        app.post('/jobs', async(req, res) =>{
+            const job = req.body;
+            const result = await jobsCollection.insertOne(job);
+            res.json(result);
+        });
 
         // // DELETE API of my orders
         // app.delete('/orders/:id', async (req, res) => {
