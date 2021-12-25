@@ -30,6 +30,7 @@ async function run(){
         const eventCollection = database.collection('event');
         const usersCollection = database.collection('users');
         const jobsCollection = database.collection('jobs');
+        const booksCollection = database.collection('books');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -250,17 +251,31 @@ async function run(){
 
         });
 
-        // GET my orders API
+        // GET jobs API
         app.get('/jobs', async (req, res) => {
             const cursor = jobsCollection.find({});
             const jobs = await cursor.toArray();
             res.send(jobs);
         });
 
-        //Orders API
+        //POST jobs API
         app.post('/jobs', async(req, res) =>{
             const job = req.body;
             const result = await jobsCollection.insertOne(job);
+            res.json(result);
+        });
+
+        // GET books API
+        app.get('/books', async (req, res) => {
+            const cursor = booksCollection.find({});
+            const books = await cursor.toArray();
+            res.send(books);
+        });
+
+        //POST books API
+        app.post('/books', async(req, res) =>{
+            const book = req.body;
+            const result = await booksCollection.insertOne(book);
             res.json(result);
         });
 
