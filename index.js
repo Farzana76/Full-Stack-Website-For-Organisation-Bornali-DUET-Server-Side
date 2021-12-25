@@ -252,6 +252,16 @@ async function run(){
 
         });
 
+         //update librarian role
+         app.put('/users/librarian', async (req, res) => {
+            const user = req.body;
+            const filter = { email: user.email };
+            const updateDoc = { $set: { role: 'librarian' } };
+            const result = await usersCollection.updateOne(filter, updateDoc);
+            res.json(result);
+
+        });
+
         // GET jobs API
         app.get('/jobs', async (req, res) => {
             const cursor = jobsCollection.find({});
