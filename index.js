@@ -31,6 +31,7 @@ async function run(){
         const usersCollection = database.collection('users');
         const jobsCollection = database.collection('jobs');
         const booksCollection = database.collection('books');
+        const libraryCollection = database.collection('library');
 
         // GET messages API
         app.get('/messages', async (req, res) => {
@@ -276,6 +277,20 @@ async function run(){
         app.post('/books', async(req, res) =>{
             const book = req.body;
             const result = await booksCollection.insertOne(book);
+            res.json(result);
+        });
+
+         // GET library API
+         app.get('/library', async (req, res) => {
+            const cursor = libraryCollection.find({});
+            const lib = await cursor.toArray();
+            res.send(lib);
+        });
+
+        //POST library API
+        app.post('/library', async(req, res) =>{
+            const lib = req.body;
+            const result = await libraryCollection.insertOne(lib);
             res.json(result);
         });
 
