@@ -6,6 +6,8 @@ require('dotenv').config();
 const fileUpload = require('express-fileupload');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
+var TurndownService = require('turndown')
+var turndownService = new TurndownService()
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -294,9 +296,26 @@ async function run(){
             res.send(jobs);
         });
 
+        // //POST jobs API
+        // app.post('/jobs', async(req, res) =>{
+        //     const job = req.body;
+        //     const result = await jobsCollection.insertOne(job);
+        //     res.json(result);
+        // });
+
         //POST jobs API
         app.post('/jobs', async(req, res) =>{
-            const job = req.body;
+            const title = req.body.title;
+            const postedBy = req.body.postedBy;
+            const dated = req.body.dated;
+            const desc = req.body.desc;
+            var markdown = turndownService.turndown(desc)
+            const job = {
+                title,
+                postedBy,
+                dated,
+                markdown
+            }
             const result = await jobsCollection.insertOne(job);
             res.json(result);
         });
