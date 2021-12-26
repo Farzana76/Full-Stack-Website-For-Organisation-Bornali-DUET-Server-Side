@@ -8,9 +8,6 @@ const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 var TurndownService = require('turndown')
 var turndownService = new TurndownService();
-const ReactDOMServer = require('react-dom/server');
-const HtmlToReactParser = require('html-to-react').Parser;
-const htmlToReactParser = new HtmlToReactParser();
 
 const app = express()
 const port = process.env.PORT || 5000
