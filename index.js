@@ -184,9 +184,9 @@ async function run(){
             const user = await usersCollection.findOne(query);
             let isAdmin = false;
             let isLibrarian = false;
-            if (user?.role === 'admin') {
+            if (user?.role1 === 'admin') {
                 isAdmin = true;
-            }else if(user?.role === 'librarian'){
+            }else if(user?.role2 === 'librarian'){
                 isLibrarian = true;
             }
             res.json({ 
@@ -264,7 +264,7 @@ async function run(){
         app.put('/users/admin', async (req, res) => {
             const user = req.body;
             const filter = { email: user.email };
-            const updateDoc = { $set: { role: 'admin' } };
+            const updateDoc = { $set: { role1: 'admin' } };
             const result = await usersCollection.updateOne(filter, updateDoc);
             res.json(result);
 
@@ -274,7 +274,7 @@ async function run(){
          app.put('/users/librarian', async (req, res) => {
             const user = req.body;
             const filter = { email: user.email };
-            const updateDoc = { $set: { role: 'librarian' } };
+            const updateDoc = { $set: { role2: 'librarian' } };
             const result = await usersCollection.updateOne(filter, updateDoc);
             res.json(result);
 
