@@ -309,12 +309,12 @@ async function run(){
             const postedBy = req.body.postedBy;
             const dated = req.body.dated;
             const desc = req.body.desc;
-            var markdown = turndownService.turndown(desc)
+            document.body.innerHTML = desc;
             const job = {
                 title,
                 postedBy,
                 dated,
-                markdown
+                desc
             }
             const result = await jobsCollection.insertOne(job);
             res.json(result);
