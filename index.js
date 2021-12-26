@@ -186,7 +186,7 @@ async function run(){
             let isLibrarian = false;
             if (user?.role1 === 'admin') {
                 isAdmin = true;
-            }else if(user?.role2 === 'librarian'){
+            }if(user?.role2 === 'librarian'){
                 isLibrarian = true;
             }
             res.json({ 
