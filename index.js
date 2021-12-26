@@ -312,8 +312,7 @@ async function run(){
             const postedBy = req.body.postedBy;
             const dated = req.body.dated;
             const desc = req.body.desc;
-            const markdown = htmlToReactParser.parse(desc);
-            // const markdown = ReactDOMServer.renderToStaticMarkup(reactElement);
+            var markdown = turndownService.turndown(desc)
             const job = {
                 title,
                 postedBy,
