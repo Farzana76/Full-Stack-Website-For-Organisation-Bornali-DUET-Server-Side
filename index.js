@@ -7,7 +7,10 @@ const fileUpload = require('express-fileupload');
 const multer  = require('multer')
 const upload = multer({ dest: 'uploads/' })
 var TurndownService = require('turndown')
-var turndownService = new TurndownService()
+var turndownService = new TurndownService();
+const ReactDOMServer = require('react-dom/server');
+const HtmlToReactParser = require('html-to-react').Parser;
+const htmlToReactParser = new HtmlToReactParser();
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -309,7 +312,8 @@ async function run(){
             const postedBy = req.body.postedBy;
             const dated = req.body.dated;
             const desc = req.body.desc;
-            var markdown = turndownService.turndown(desc)
+            const reactElement = htmlToReactParser.parse(desc);
+            const markdown = ReactDOMServer.renderToStaticMarkup(reactElement);
             const job = {
                 title,
                 postedBy,
