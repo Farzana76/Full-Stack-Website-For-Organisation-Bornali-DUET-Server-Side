@@ -4,6 +4,8 @@ const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
 require('dotenv').config();
 const fileUpload = require('express-fileupload');
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -33,6 +35,10 @@ async function run(){
         const booksCollection = database.collection('books');
         const libraryCollection = database.collection('library');
 
+        app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
+            var file = req.files;
+            res.end();
+          });
         // GET messages API
         app.get('/messages', async (req, res) => {
             const cursor = messageCollection.find({});
