@@ -34,6 +34,7 @@ async function run(){
         const jobsCollection = database.collection('jobs');
         const booksCollection = database.collection('books');
         const libraryCollection = database.collection('library');
+        const videoCollection = database.collection('video');
 
         app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
             var file = req.files;
@@ -325,6 +326,20 @@ async function run(){
         app.post('/library', async(req, res) =>{
             const lib = req.body;
             const result = await libraryCollection.insertOne(lib);
+            res.json(result);
+        });
+
+         // GET video API
+         app.get('/video', async (req, res) => {
+            const cursor = videoCollection.find({});
+            const vdo = await cursor.toArray();
+            res.send(vdo);
+        });
+
+        //POST video API
+        app.post('/video', async(req, res) =>{
+            const vdo = req.body;
+            const result = await videoCollection.insertOne(vdo);
             res.json(result);
         });
 
