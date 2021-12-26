@@ -189,6 +189,18 @@ async function run(){
             res.json({ admin: isAdmin });
         })
 
+        // check librarian
+        app.get('/users/:email', async (req, res) => {
+            const email = req.params.email;
+            const query = { email: email };
+            const user = await usersCollection.findOne(query);
+            let isLibrarian = false;
+            if (user?.role === 'librarian') {
+                isLibrarian = true;
+            }
+            res.json({ librarian: isLibrarian });
+        })
+
         // GET event API
         app.get('/users', async (req, res) => {
             const cursor = usersCollection.find({});
