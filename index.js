@@ -296,30 +296,30 @@ async function run(){
             res.send(jobs);
         });
 
-        // //POST jobs API
-        // app.post('/jobs', async(req, res) =>{
-        //     const job = req.body;
-        //     const result = await jobsCollection.insertOne(job);
-        //     res.json(result);
-        // });
-
         //POST jobs API
         app.post('/jobs', async(req, res) =>{
-            const title = req.body.title;
-            const postedBy = req.body.postedBy;
-            const dated = req.body.dated;
-            const desc = req.body.desc;
-            var markdown = turndownService.turndown(desc);
-            markdown = markdown.replace(/"*"/g, "/n");
-            const job = {
-                title,
-                postedBy,
-                dated,
-                markdown
-            }
+            const job = req.body;
             const result = await jobsCollection.insertOne(job);
             res.json(result);
         });
+
+        //POST jobs API
+        // app.post('/jobs', async(req, res) =>{
+        //     const title = req.body.title;
+        //     const postedBy = req.body.postedBy;
+        //     const dated = req.body.dated;
+        //     const desc = req.body.desc;
+        //     var markdown = turndownService.turndown(desc);
+        //     markdown = markdown.replace(/"*"/g, "/n");
+        //     const job = {
+        //         title,
+        //         postedBy,
+        //         dated,
+        //         markdown
+        //     }
+        //     const result = await jobsCollection.insertOne(job);
+        //     res.json(result);
+        // });
 
         // GET books API
         app.get('/books', async (req, res) => {
