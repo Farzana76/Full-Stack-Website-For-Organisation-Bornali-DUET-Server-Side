@@ -183,23 +183,29 @@ async function run(){
             const query = { email: email };
             const user = await usersCollection.findOne(query);
             let isAdmin = false;
+            let isLibrarian = false;
             if (user?.role === 'admin') {
                 isAdmin = true;
-            }
-            res.json({ admin: isAdmin });
-        })
-
-        // check librarian
-        app.get('/users/:email', async (req, res) => {
-            const email = req.params.email;
-            const query = { email: email };
-            const user = await usersCollection.findOne(query);
-            let isLibrarian = false;
-            if (user?.role === 'librarian') {
+            }else if(user?.role === 'librarian'){
                 isLibrarian = true;
             }
-            res.json({ librarian: isLibrarian });
+            res.json({ 
+                    admin: isAdmin,
+                    librarian: isLibrarian
+              });
         })
+
+        // // check librarian
+        // app.get('/users/:email', async (req, res) => {
+        //     const email = req.params.email;
+        //     const query = { email: email };
+        //     const user = await usersCollection.findOne(query);
+            
+        //     if () {
+                
+        //     }
+        //     res.json({ librarian: isLibrarian });
+        // })
 
         // GET event API
         app.get('/users', async (req, res) => {
