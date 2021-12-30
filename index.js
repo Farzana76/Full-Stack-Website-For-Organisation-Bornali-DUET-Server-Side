@@ -146,7 +146,7 @@ async function run(){
         // GET event API
         app.get('/event', async (req, res) => {
             const cursor = eventCollection.find({});
-            const events = await cursor.toArray();
+            const events = await cursor.sort(sort1).toArray();
             res.send(events);
         });
 
@@ -222,7 +222,7 @@ async function run(){
         // GET event API
         app.get('/users', async (req, res) => {
             const cursor = usersCollection.find({});
-            const users = await cursor.toArray();
+            const users = await cursor.sort(sort1).toArray();
             res.send(users);
         });
 
