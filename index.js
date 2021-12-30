@@ -38,6 +38,8 @@ async function run(){
         const libraryCollection = database.collection('library');
         const videoCollection = database.collection('video');
 
+        const sort = { dated: -1 }
+
         app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
             var file = req.files;
             res.end();
@@ -291,9 +293,8 @@ async function run(){
 
         // GET jobs API
         app.get('/jobs', async (req, res) => {
-            const date = req.body.dated;
-            const cursor = jobsCollection.find({}).sort( { date: 1 } );
-            const jobs = await cursor.toArray()
+            const cursor = jobsCollection.find({});
+            const jobs = await cursor.sort(sort).toArray()
             ;
             res.send(jobs);
         });
