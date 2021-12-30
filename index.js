@@ -39,6 +39,7 @@ async function run(){
         const videoCollection = database.collection('video');
 
         const sort = { dated: -1 }
+        const sort1 = {_id: -1}
 
         app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
             var file = req.files;
@@ -294,7 +295,7 @@ async function run(){
         // GET jobs API
         app.get('/jobs', async (req, res) => {
             const cursor = jobsCollection.find({});
-            const jobs = await cursor.sort(sort).toArray()
+            const jobs = await cursor.sort(sort1).toArray()
             ;
             res.send(jobs);
         });
