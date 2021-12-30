@@ -41,10 +41,10 @@ async function run(){
         const sort = { dated: -1 }
         const sort1 = {_id: -1}
 
-        app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
-            var file = req.files;
-            res.end();
-          });
+        // app.post('/event', upload.array('uploadedImages', 10), function(req, res) {
+        //     var file = req.files;
+        //     res.end();
+        //   });
         // GET messages API
         app.get('/messages', async (req, res) => {
             const cursor = messageCollection.find({});
