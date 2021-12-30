@@ -292,7 +292,8 @@ async function run(){
         // GET jobs API
         app.get('/jobs', async (req, res) => {
             const cursor = jobsCollection.find({});
-            const jobs = await cursor.sort().toArray();
+            const date = req.body.dated;
+            const jobs = await cursor.sort({date: -1}).toArray();
             res.send(jobs);
         });
 
