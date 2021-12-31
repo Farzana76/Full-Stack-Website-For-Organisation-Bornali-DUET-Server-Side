@@ -167,7 +167,7 @@ async function run(){
                 image: imageBuffer,
                 designation
             }
-            const result = await messageCollection.insertOne(pres);
+            const result = await prevPCollection.insertOne(pres);
             res.json(result);
         });
 
@@ -193,7 +193,7 @@ async function run(){
                 image: imageBuffer,
                 designation
             }
-            const result = await messageCollection.insertOne(sec);
+            const result = await prevSCollection.insertOne(sec);
             res.json(result);
         });
 
