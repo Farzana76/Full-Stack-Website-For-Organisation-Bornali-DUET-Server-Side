@@ -278,7 +278,7 @@ async function run(){
             // const picData15 = image15.data;
             // const encodedPic15 = picData15.toString('base64');
             // const imageBuffer15 = Buffer.from(encodedPic15, 'base64');
-            const event = {
+            const event1 = {
                 name,
                 session,
                 image1: imageBuffer1,
@@ -299,7 +299,7 @@ async function run(){
                 link,
                 msg
             }
-            const result = await eventCollection.insertOne(event);
+            const result = await eventCollection.insertOne(event1);
             res.json(result);
         });
 
