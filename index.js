@@ -296,10 +296,10 @@ async function run(){
         });
 
         // check admin
-        app.get('/users/:email', (req, res) => {
+        app.get('/users/:email', async (req, res) => {
             const email = req.params.email;
             const query = { email: email };
-            const user = usersCollection.findOne(query);
+            const user = await usersCollection.findOne(query);
             let isAdmin = false;
             let isLibrarian = false;
             let isOldUser = false;
