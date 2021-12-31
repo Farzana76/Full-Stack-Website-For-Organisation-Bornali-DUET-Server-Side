@@ -315,7 +315,7 @@ async function run(){
             res.json({ 
                     admin: isAdmin,
                     librarian: isLibrarian,
-                    isOldUser: isOldUser
+                    oldUser: isOldUser
               });
         })
 
