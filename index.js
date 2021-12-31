@@ -322,7 +322,7 @@ async function run(){
             
             res.json({ 
                     admin: isAdmin,
-                    librarian: isLibrarian,
+                    librarian: isLibrarian
                     // oldUser: isOldUser
               });
         })
