@@ -308,7 +308,7 @@ async function run(){
             }if(user?.role2 === 'librarian'){
                 isLibrarian = true;
             }
-            if(user.email){
+            if(user.email != undefined){
                 isOldUser = true;
             }
             
