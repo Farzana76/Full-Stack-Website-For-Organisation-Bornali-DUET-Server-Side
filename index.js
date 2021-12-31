@@ -37,6 +37,8 @@ async function run(){
         const booksCollection = database.collection('books');
         const libraryCollection = database.collection('library');
         const videoCollection = database.collection('video');
+        const prevPCollection = database.collection('previouspres');
+        const prevSCollection = database.collection('previoussec');
 
         const sort = { dated: -1 }
         const sort1 = {_id: -1}
@@ -142,6 +144,58 @@ async function run(){
                 const result = await standingCommitteeCollection.insertOne(standingCommittee);
                 res.json(result);
             });
+
+        // GET previous president API
+        app.get('/previouspres', async (req, res) => {
+            const cursor = prevPCollection.find({});
+            const pres = await cursor.sort(sort1).toArray();
+            res.send(pres);
+        });
+
+        //POST previous president API
+        app.post('/previouspres', async(req, res) =>{
+            const name = req.body.name;
+            const session = req.body.session;
+            const designation = req.body.designation;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64');
+            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const pres = {
+                name,
+                session,
+                image: imageBuffer,
+                designation
+            }
+            const result = await messageCollection.insertOne(pres);
+            res.json(result);
+        });
+
+        // GET previous secretary API
+        app.get('/previoussec', async (req, res) => {
+            const cursor = prevSCollection.find({});
+            const sec = await cursor.sort(sort1).toArray();
+            res.send(sec);
+        });
+
+        //POST previous secretary API
+        app.post('/previoussec', async(req, res) =>{
+            const name = req.body.name;
+            const session = req.body.session;
+            const designation = req.body.designation;
+            const image = req.files.image;
+            const picData = image.data;
+            const encodedPic = picData.toString('base64');
+            const imageBuffer = Buffer.from(encodedPic, 'base64');
+            const sec = {
+                name,
+                session,
+                image: imageBuffer,
+                designation
+            }
+            const result = await messageCollection.insertOne(sec);
+            res.json(result);
+        });
 
         // GET event API
         app.get('/event', async (req, res) => {
