@@ -306,20 +306,20 @@ async function run(){
             const user = await usersCollection.findOne(query);
             let isAdmin = false;
             let isLibrarian = false;
-            let isOldUser = false;
+            // let isOldUser = false;
             if (user?.role1 === 'admin') {
                 isAdmin = true;
             }if(user?.role2 === 'librarian'){
                 isLibrarian = true;
             }
-            if(user.email != undefined){
-                isOldUser = true;
-            }
+            // if(user.email != undefined){
+            //     isOldUser = true;
+            // }
             
             res.json({ 
                     admin: isAdmin,
                     librarian: isLibrarian,
-                    oldUser: isOldUser
+                    // oldUser: isOldUser
               });
         })
 
