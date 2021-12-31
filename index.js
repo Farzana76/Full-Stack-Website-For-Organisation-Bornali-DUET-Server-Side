@@ -157,6 +157,7 @@ async function run(){
             const name = req.body.name;
             const session = req.body.session;
             const designation = req.body.designation;
+            const phn = req.body.phn;
             const image = req.files.image;
             const picData = image.data;
             const encodedPic = picData.toString('base64');
@@ -165,7 +166,8 @@ async function run(){
                 name,
                 session,
                 image: imageBuffer,
-                designation
+                designation,
+                phn
             }
             const result = await prevPCollection.insertOne(pres);
             res.json(result);
@@ -183,6 +185,7 @@ async function run(){
             const name = req.body.name;
             const session = req.body.session;
             const designation = req.body.designation;
+            const phn = req.body.phn;
             const image = req.files.image;
             const picData = image.data;
             const encodedPic = picData.toString('base64');
@@ -191,7 +194,8 @@ async function run(){
                 name,
                 session,
                 image: imageBuffer,
-                designation
+                designation,
+                phn
             }
             const result = await prevSCollection.insertOne(sec);
             res.json(result);
