@@ -2,12 +2,13 @@ const express = require('express')
 const { MongoClient } = require('mongodb');
 const cors = require('cors');
 const ObjectId = require('mongodb').ObjectId;
+const bodyParser = require('body-parser');
 require('dotenv').config();
-const fileUpload = require('express-fileupload');
-const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
-var TurndownService = require('turndown')
-var turndownService = new TurndownService();
+// const fileUpload = require('express-fileupload');
+// const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
+// var TurndownService = require('turndown')
+// var turndownService = new TurndownService();
 
 const app = express()
 const port = process.env.PORT || 5000
@@ -15,7 +16,8 @@ const port = process.env.PORT || 5000
 //middleware
 app.use(cors());
 app.use(express.json());
-app.use(fileUpload());
+app.use(bodyParser.json());
+// app.use(fileUpload());
 
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.9ch1e.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
@@ -355,41 +357,51 @@ async function run(){
         });
 
         // upsert for google login
+        // app.put('/users', async (req, res) => {
+        //     const sid = req.body.sid;
+        //     const session = req.body.session;
+        //     const dept = req.body.dept;
+        //     const blood = req.body.bloodGroup;
+        //     const name = req.body.displayName;
+        //     const email = req.body.email;
+        //     const phone = req.body.phone;
+        //     const address = req.body.address;
+        //     const city = req.body.city;
+        //     const company = req.body.company;
+        //     const position = req.body.position;
+        //     const image = req.files.image;
+        //     const picData = image.data;
+        //     const encodedPic = picData.toString('base64');
+        //     const imageBuffer = Buffer.from(encodedPic, 'base64');
+        //     const user = {
+        //         sid,
+        //         session,
+        //         dept,
+        //         blood,
+        //         name,
+        //         email,
+        //         phone,
+        //         address,
+        //         city,
+        //         company,
+        //         position,
+        //         image: imageBuffer
+        //     }
+        //     const filter = { email: user.email};
+        //     const options = { upsert: true };
+        //     const updateDoc = { $set: user };
+        //     const result = await usersCollection.updateOne(filter, updateDoc, options);
+        //     res.json(result);
+        // });
+
         app.put('/users', async (req, res) => {
-            const sid = req.body.sid;
-            const session = req.body.session;
-            const dept = req.body.dept;
-            const blood = req.body.bloodGroup;
-            const name = req.body.displayName;
-            const email = req.body.email;
-            const phone = req.body.phone;
-            const address = req.body.address;
-            const city = req.body.city;
-            const company = req.body.company;
-            const position = req.body.position;
-            const image = req.files.image;
-            const picData = image.data;
-            const encodedPic = picData.toString('base64');
-            const imageBuffer = Buffer.from(encodedPic, 'base64');
-            const user = {
-                sid,
-                session,
-                dept,
-                blood,
-                name,
-                email,
-                phone,
-                address,
-                city,
-                company,
-                position,
-                image: imageBuffer
-            }
-            const filter = { email: user.email};
+            const user = req.body;
+            const filter = { email: user.email };
             const options = { upsert: true };
             const updateDoc = { $set: user };
             const result = await usersCollection.updateOne(filter, updateDoc, options);
             res.json(result);
+
         });
 
         //update admin role
