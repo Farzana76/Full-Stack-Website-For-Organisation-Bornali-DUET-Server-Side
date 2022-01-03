@@ -216,94 +216,101 @@ async function run(){
 
         //POST event API
         app.post('/event', async(req, res) =>{
-            const name = req.body.name;
-            const session = req.body.session;
-            const msg = req.body.msg;
-            const link = req.body.link;
-            const image1 = req.files.image1;
-            const picData1 = image1.data;
-            const encodedPic1 = picData1.toString('base64');
-            const imageBuffer1 = Buffer.from(encodedPic1, 'base64');
-            const image2 = req.files.image2;
-            const picData2 = image2.data;
-            const encodedPic2 = picData2.toString('base64');
-            const imageBuffer2 = Buffer.from(encodedPic2, 'base64');
-            const image3 = req.files.image3;
-            const picData3 = image3.data;
-            const encodedPic3 = picData3.toString('base64');
-            const imageBuffer3 = Buffer.from(encodedPic3, 'base64');
-            const image4 = req.files.image4;
-            const picData4 = image4.data;
-            const encodedPic4 = picData4.toString('base64');
-            const imageBuffer4 = Buffer.from(encodedPic4, 'base64');
-            const image5 = req.files.image5;
-            const picData5 = image5.data;
-            const encodedPic5 = picData5.toString('base64');
-            const imageBuffer5 = Buffer.from(encodedPic5, 'base64');
-            // const image6 = req.files.image6;
-            // const picData6 = image6.data;
-            // const encodedPic6 = picData6.toString('base64');
-            // const imageBuffer6 = Buffer.from(encodedPic6, 'base64');
-            // const image7 = req.files.image7;
-            // const picData7 = image7.data;
-            // const encodedPic7 = picData7.toString('base64');
-            // const imageBuffer7 = Buffer.from(encodedPic7, 'base64');
-            // const image8 = req.files.image8;
-            // const picData8 = image8.data;
-            // const encodedPic8 = picData8.toString('base64');
-            // const imageBuffer8 = Buffer.from(encodedPic8, 'base64');
-            // const image9 = req.files.image9;
-            // const picData9 = image9.data;
-            // const encodedPic9 = picData9.toString('base64');
-            // const imageBuffer9 = Buffer.from(encodedPic9, 'base64');
-            // const image10 = req.files.image10;
-            // const picData10 = image10.data;
-            // const encodedPic10 = picData10.toString('base64');
-            // const imageBuffer10 = Buffer.from(encodedPic10, 'base64');
-            // const image11 = req.files.image11;
-            // const picData11 = image11.data;
-            // const encodedPic11 = picData11.toString('base64');
-            // const imageBuffer11 = Buffer.from(encodedPic11, 'base64');
-            // const image12 = req.files.image12;
-            // const picData12 = image12.data;
-            // const encodedPic12 = picData12.toString('base64');
-            // const imageBuffer12 = Buffer.from(encodedPic12, 'base64');
-            // const image13 = req.files.image13;
-            // const picData13 = image13.data;
-            // const encodedPic13 = picData13.toString('base64');
-            // const imageBuffer13 = Buffer.from(encodedPic13, 'base64');
-            // const image14 = req.files.image14;
-            // const picData14 = image14.data;
-            // const encodedPic14 = picData14.toString('base64');
-            // const imageBuffer14 = Buffer.from(encodedPic14, 'base64');
-            // const image15 = req.files.image15;
-            // const picData15 = image15.data;
-            // const encodedPic15 = picData15.toString('base64');
-            // const imageBuffer15 = Buffer.from(encodedPic15, 'base64');
-            const event1 = {
-                name,
-                session,
-                image1: imageBuffer1,
-                image2: imageBuffer2,
-                image3: imageBuffer3,
-                image4: imageBuffer4,
-                image5: imageBuffer5,
-                // image6: imageBuffer6,
-                // image7: imageBuffer7,
-                // image8: imageBuffer8,
-                // image9: imageBuffer9,
-                // image10: imageBuffer10,
-                // image11: imageBuffer11,
-                // image12: imageBuffer12,
-                // image13: imageBuffer13,
-                // image14: imageBuffer14,
-                // image15: imageBuffer15,
-                link,
-                msg
-            }
-            const result = await eventCollection.insertOne(event1);
+            const event = req.body;
+            const result = await eventCollection.insertOne(event);
             res.json(result);
         });
+
+        //POST event API
+        // app.post('/event', async(req, res) =>{
+        //     const name = req.body.name;
+        //     const session = req.body.session;
+        //     const msg = req.body.msg;
+        //     const link = req.body.link;
+        //     const image1 = req.files.image1;
+        //     const picData1 = image1.data;
+        //     const encodedPic1 = picData1.toString('base64');
+        //     const imageBuffer1 = Buffer.from(encodedPic1, 'base64');
+        //     const image2 = req.files.image2;
+        //     const picData2 = image2.data;
+        //     const encodedPic2 = picData2.toString('base64');
+        //     const imageBuffer2 = Buffer.from(encodedPic2, 'base64');
+        //     const image3 = req.files.image3;
+        //     const picData3 = image3.data;
+        //     const encodedPic3 = picData3.toString('base64');
+        //     const imageBuffer3 = Buffer.from(encodedPic3, 'base64');
+        //     const image4 = req.files.image4;
+        //     const picData4 = image4.data;
+        //     const encodedPic4 = picData4.toString('base64');
+        //     const imageBuffer4 = Buffer.from(encodedPic4, 'base64');
+        //     const image5 = req.files.image5;
+        //     const picData5 = image5.data;
+        //     const encodedPic5 = picData5.toString('base64');
+        //     const imageBuffer5 = Buffer.from(encodedPic5, 'base64');
+        //     // const image6 = req.files.image6;
+        //     // const picData6 = image6.data;
+        //     // const encodedPic6 = picData6.toString('base64');
+        //     // const imageBuffer6 = Buffer.from(encodedPic6, 'base64');
+        //     // const image7 = req.files.image7;
+        //     // const picData7 = image7.data;
+        //     // const encodedPic7 = picData7.toString('base64');
+        //     // const imageBuffer7 = Buffer.from(encodedPic7, 'base64');
+        //     // const image8 = req.files.image8;
+        //     // const picData8 = image8.data;
+        //     // const encodedPic8 = picData8.toString('base64');
+        //     // const imageBuffer8 = Buffer.from(encodedPic8, 'base64');
+        //     // const image9 = req.files.image9;
+        //     // const picData9 = image9.data;
+        //     // const encodedPic9 = picData9.toString('base64');
+        //     // const imageBuffer9 = Buffer.from(encodedPic9, 'base64');
+        //     // const image10 = req.files.image10;
+        //     // const picData10 = image10.data;
+        //     // const encodedPic10 = picData10.toString('base64');
+        //     // const imageBuffer10 = Buffer.from(encodedPic10, 'base64');
+        //     // const image11 = req.files.image11;
+        //     // const picData11 = image11.data;
+        //     // const encodedPic11 = picData11.toString('base64');
+        //     // const imageBuffer11 = Buffer.from(encodedPic11, 'base64');
+        //     // const image12 = req.files.image12;
+        //     // const picData12 = image12.data;
+        //     // const encodedPic12 = picData12.toString('base64');
+        //     // const imageBuffer12 = Buffer.from(encodedPic12, 'base64');
+        //     // const image13 = req.files.image13;
+        //     // const picData13 = image13.data;
+        //     // const encodedPic13 = picData13.toString('base64');
+        //     // const imageBuffer13 = Buffer.from(encodedPic13, 'base64');
+        //     // const image14 = req.files.image14;
+        //     // const picData14 = image14.data;
+        //     // const encodedPic14 = picData14.toString('base64');
+        //     // const imageBuffer14 = Buffer.from(encodedPic14, 'base64');
+        //     // const image15 = req.files.image15;
+        //     // const picData15 = image15.data;
+        //     // const encodedPic15 = picData15.toString('base64');
+        //     // const imageBuffer15 = Buffer.from(encodedPic15, 'base64');
+        //     const event1 = {
+        //         name,
+        //         session,
+        //         image1: imageBuffer1,
+        //         image2: imageBuffer2,
+        //         image3: imageBuffer3,
+        //         image4: imageBuffer4,
+        //         image5: imageBuffer5,
+        //         // image6: imageBuffer6,
+        //         // image7: imageBuffer7,
+        //         // image8: imageBuffer8,
+        //         // image9: imageBuffer9,
+        //         // image10: imageBuffer10,
+        //         // image11: imageBuffer11,
+        //         // image12: imageBuffer12,
+        //         // image13: imageBuffer13,
+        //         // image14: imageBuffer14,
+        //         // image15: imageBuffer15,
+        //         link,
+        //         msg
+        //     }
+        //     const result = await eventCollection.insertOne(event1);
+        //     res.json(result);
+        // });
 
         // check admin
         app.get('/users/:email', async (req, res) => {
