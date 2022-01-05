@@ -363,44 +363,6 @@ async function run(){
             res.json(result);
         });
 
-        // upsert for google login
-        // app.put('/users', async (req, res) => {
-        //     const sid = req.body.sid;
-        //     const session = req.body.session;
-        //     const dept = req.body.dept;
-        //     const blood = req.body.bloodGroup;
-        //     const name = req.body.displayName;
-        //     const email = req.body.email;
-        //     const phone = req.body.phone;
-        //     const address = req.body.address;
-        //     const city = req.body.city;
-        //     const company = req.body.company;
-        //     const position = req.body.position;
-        //     const image = req.files.image;
-        //     const picData = image.data;
-        //     const encodedPic = picData.toString('base64');
-        //     const imageBuffer = Buffer.from(encodedPic, 'base64');
-        //     const user = {
-        //         sid,
-        //         session,
-        //         dept,
-        //         blood,
-        //         name,
-        //         email,
-        //         phone,
-        //         address,
-        //         city,
-        //         company,
-        //         position,
-        //         image: imageBuffer
-        //     }
-        //     const filter = { email: user.email};
-        //     const options = { upsert: true };
-        //     const updateDoc = { $set: user };
-        //     const result = await usersCollection.updateOne(filter, updateDoc, options);
-        //     res.json(result);
-        // });
-
         app.put('/users', async (req, res) => {
             const user = req.body;
             const filter = { email: user.email };
@@ -409,6 +371,16 @@ async function run(){
             const result = await usersCollection.updateOne(filter, updateDoc, options);
             res.json(result);
 
+        });
+
+        // DELETE API of users
+        app.delete('/users/:id', async (req, res) => {
+            // console.log('hit the post api', id);
+            const id = req.params.id;
+            const query = { _id: ObjectId(id) };
+            const result = await usersCollection.deleteOne(query);
+            res.json(result);
+            // res.json("delete");
         });
 
         //update admin role
